@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "Lint Commit Message"
+npx --no -- commitlint --edit "${1}"
+echo "Finished Lint Commit Message"
+

@@ -1,0 +1,14 @@
+{
+  "singleQuote": true,
+  "trailingComma": "all",
+  "printWidth": 100,
+  "import/no-unused-modules": true,
+  "overrides": [
+    {
+      "files": "export.+(ts|tsx)",
+      "options": {
+        "printWidth": 140
+      }
+    }
+  ]
+}

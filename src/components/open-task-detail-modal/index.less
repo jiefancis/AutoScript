@@ -1,0 +1,53 @@
+.open-task-detail {
+  &-title {
+    color: #000;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 17px;
+  }
+
+  &-desc {
+    width: 277px;
+    color: #a7a7a7;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    margin: 37px 26px;
+  }
+
+  &-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+
+    &-btn {
+      // width: 154px;
+      // height: 52px;
+      width: 200px;
+      height: 52px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 20px;
+
+      // &-cancel {
+      //   cursor: pointer;
+      //   color: #000;
+      //   line-height: 52px;
+      //   background: @btn-bg-color-f6;
+      // }
+
+      &-open {
+        cursor: pointer;
+        line-height: 52px;
+        color: #fff;
+        background: @btn-bg-color-black;
+        margin: 0 0 0 64px;
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "name": "AutoApe.AI: Web3 Airdrop Copilot for Chrome",
+  "description": "AutoApe.AI: Web3 Airdrop Copilot for Chrome",
+  "version": "1.0.0",
+  "icons": {
+    "16": "logo_16x.png",
+    "48": "logo_48x.png",
+    "128": "logo_128x.png"
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0STzPxs8icFYdPWLNHPwVILtnZZpELOszNDS1tpjbQve18tZkkjYUMkph7qevdxX85fvLlvsdcLDro/+DXUDbwrulaxXFQ7d5FrBeT5aLfbhTxjd6V9FsgROrdmgBDIWQ4xbKqf+9ItOF1wEizE5nWE5Eh/t8bqDVupmQ2SwNmnUdJhGejoJlRgKsLAP9owpv6vXfGEE1ubzTcSEqNWQCHRnv2LvHPSxtn6w4ve07uL1IVaj8bDjPnAGmv9ucPM+zaG/xwPd4knUF7eQYnI6FkgFa8PhdAwOBaN6nVWLVVRDBUn5ncwDAaECldUjGjW7/grHGJWCFwPG8mv1PAHWBwIDAQAB",
+  "oauth2": {
+    "client_id": "597072173507-dfc90kior3u4jd5phopiu47j75f464sd.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/userinfo.profile"
+    ]
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "externally_connectable": {
+    "matches": [
+      "https://*/*",
+      "http://*/*"
+    ]
+  },
+  "action": {
+    "default_title": "AutoApe.AI: Web3 Airdrop Copilot for Chrome",
+    "default_icon": {
+      "16": "logo_16x.png",
+      "48": "logo_48x.png",
+      "128": "logo_128x.png"
+    },
+    "default_popup": "index.html"
+  },
+  "permissions": [
+    "identity",
+    "identity.email",
+    "storage",
+    "notifications",
+    "tabs"
+  ],
+  "host_permissions": [
+    "*://*/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*/*"
+      ],
+      "js": [
+        "content-script.js"
+      ],
+      "run_at": "document_start",
+      "type": "module"
+    }
+  ]
+}

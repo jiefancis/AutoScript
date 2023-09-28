@@ -1,0 +1,82 @@
+{
+  "name": "auto-ape-extension",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "watch": "npm run watch:qa",
+    "build": "npm run build:prod",
+    "watch:qa": "npm run build:qa",
+    "build:qa": "cross-env ENV=qa vite build",
+    "build:prod": "cross-env ENV=prod vite build && npm run build:zip",
+    "build:zip": "node scripts/build-zip.js",
+    "prepare": "husky install",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js}": [
+      "eslint --fix --max-warnings 0",
+      "prettier --write",
+      "git add ."
+    ],
+    "*.{css,less,sass,scss}": [
+      "stylelint --fix",
+      "git add ."
+    ]
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.2.6",
+    "ahooks": "^3.7.8",
+    "antd": "^5.8.4",
+    "axios": "^1.5.0",
+    "classnames": "^2.3.2",
+    "dayjs": "^1.11.9",
+    "html-minifier-terser": "^7.2.0",
+    "html2canvas": "^1.4.1",
+    "lodash-es": "^4.17.21",
+    "normalize.css": "^8.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-draggable": "^4.4.5",
+    "react-router-dom": "^6.11.2",
+    "react-timer-hook": "^3.0.7",
+    "react-use-websocket": "^4.4.0",
+    "store2": "^2.14.2",
+    "webextension-polyfill": "^0.10.0",
+    "xpath-html": "^1.0.3"
+  },
+  "devDependencies": {
+    "@commitlint/config-conventional": "^17.7.0",
+    "@types/chrome": "^0.0.235",
+    "@types/lodash-es": "^4.17.9",
+    "@types/node": "^20.6.0",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/webextension-polyfill": "^0.10.0",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "@vitejs/plugin-react": "^4.0.0",
+    "archiver": "^6.0.1",
+    "chalk": "^5.3.0",
+    "commitlint": "^17.7.1",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.38.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.3.4",
+    "husky": "^8.0.3",
+    "less": "^4.1.3",
+    "less-loader": "^11.1.0",
+    "lint-staged": "^14.0.1",
+    "postcss-less": "^6.0.0",
+    "prettier": "^2.8.8",
+    "stylelint": "^15.10.3",
+    "stylelint-config-standard": "^34.0.0",
+    "stylelint-selector-bem-pattern": "^3.0.1",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.2"
+  }
+}

@@ -1,0 +1,30 @@
+.task-item-status-icon {
+  &-progress {
+    width: 40px;
+    height: 40px;
+    position: relative;
+
+    .ant-progress {
+      position: absolute !important;
+      left: 0 !important;
+      top: 0 !important;
+    }
+  }
+
+  &-circle {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    left: 2.8px;
+    top: 2px;
+    background-color: #fff4ea;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &--fail {
+      background-color: #ffebeb;
+    }
+  }
+}
