@@ -139,9 +139,12 @@ const next = (resolve: any, elm: any = {}) => {
   delay(LINK_DELAY_TIME).then(() => resolve(elm?.href || false));
   delay(CLICK_DELAY_TIME).then(() => elm?.click?.());
 };
-const beforeClick = (resolve: any, elm: any, xpath?: string) => {
+const beforeClick = async (resolve: any, elm: any, xpath?: string) => {
   if (isFormInputElm(elm)) {
-    delay().then(() => setFormElementValue(elm, INPUT_VALUE, xpath).then(() => next(resolve, elm)));
+    await delay();
+    await setFormElementValue(elm, INPUT_VALUE, xpath);
+    next(resolve, elm);
+    // delay().then(() => setFormElementValue(elm, INPUT_VALUE, xpath).then(() => next(resolve, elm)));
   } else {
     next(resolve, elm);
   }
@@ -233,35 +236,54 @@ const scrollToBottom = () => {
   });
 };
 
-const exceuteFlow = (request: MessageParams) => {
-  const { stopTask, scroll, taskId, stopNewTab } = request;
+const exceuteFlowEnd = async (request: MessageParams) => {
+  const { stopTask, stopNewTab, openNewTab } = request;
+  console.log('exceuteFlowEnd', stopTask, stopNewTab, openNewTab, request);
+  const isLink = await handleClickAction(request);
+  await delay();
+  if (stopTask) {
+    taskStop();
+  } else if (openNewTab || needOpenNewTab(!!stopNewTab)) {
+    sendMessage({ event: EVENT_TYPE.NEXT_OPEN_TAB, isLink });
+  } else {
+    sendMessage({
+      event: EVENT_TYPE.NEXT_CLICK_ACTION,
+      isLink,
+    });
+  }
+};
+
+const exceuteFlow = async (request: MessageParams) => {
+  const { scroll, taskId } = request;
   currentTaskId = taskId;
 
   if (scroll) {
     scrollToBottom();
   } else {
-    handleClickAction(request).then(async (isLink) => {
-      delay().then(() => {
-        if (stopTask) {
-          if (request?.openNewTab) {
-            sendMessage({
-              event: EVENT_TYPE.NEXT_OPEN_TAB,
-              isLink,
-            });
-          }
-          taskStop();
-          return;
-        } else {
-          sendMessage({
-            event: needOpenNewTab(!!stopNewTab)
-              ? EVENT_TYPE.NEXT_OPEN_TAB
-              : EVENT_TYPE.NEXT_CLICK_ACTION,
-            isLink,
-            from: 'content_script',
-          });
-        }
-      });
-    });
+    exceuteFlowEnd(request);
+
+    // handleClickAction(request).then(async (isLink) => {
+    //   delay().then(() => {
+    //     if (stopTask) {
+    //       if (request?.openNewTab) {
+    //         sendMessage({
+    //           event: EVENT_TYPE.NEXT_OPEN_TAB,
+    //           isLink,
+    //         });
+    //       }
+    //       taskStop();
+    //       return;
+    //     } else {
+    //       sendMessage({
+    //         event: needOpenNewTab(!!stopNewTab)
+    //           ? EVENT_TYPE.NEXT_OPEN_TAB
+    //           : EVENT_TYPE.NEXT_CLICK_ACTION,
+    //         isLink,
+    //         from: 'content_script',
+    //       });
+    //     }
+    //   });
+    // });
   }
 };
 
@@ -326,26 +348,3 @@ messageListener.on(EVENT_TYPE.TASK_RESTART, function (message: MessageParams) {
 });
 
 chrome.runtime.onMessage.addListener(messageListener.listener());
-
-// chrome.runtime.onMessage.addListener(function (request) {
-//   // sender, sendResponse
-
-//   // console.log('content-script-message', request);
-//   const { event, selector, stopNewTab } = request; // isWeb3Task
-//   // _isWeb3Task = !!isWeb3Task;
-
-//   if (event === 'shotFullPagebg') {
-//     // shotFullPage();
-//     sendMessage({
-//       url: '',
-//       dom: '',
-//       event: 'runToEarn',
-//       token: '',
-//     });
-//   } else if (event === CLICK_ACTION) {
-//     // handleClickAction();
-//     sendMessage({ event: EVENT_TYPE.RUN_TO_EARN });
-//   } else if (event === EVENT_TYPE.NEXT_CLICK_ACTION) {
-//     exceuteFlow(selector, stopNewTab, request);
-//   }
-// });

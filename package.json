@@ -9,7 +9,7 @@
     "build": "npm run build:prod",
     "watch:qa": "npm run build:qa",
     "build:qa": "cross-env ENV=qa vite build",
-    "build:prod": "cross-env ENV=prod vite build && npm run build:zip",
+    "build:prod": "cross-env ENV=prod vite build",
     "build:zip": "node scripts/build-zip.js",
     "prepare": "husky install",
     "precommit": "lint-staged"

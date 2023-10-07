@@ -70,13 +70,13 @@ enum TASK_STATUS_ENUM {
 // }
 
 const taskRunToEarn = async (params: any) => {
-  // return new Promise((resolve) => {
-  //   setTimeout(() => {
-  //     resolve({
-  //       status: 200,
-  //     });
-  //   }, 500);
-  // });
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        status: 200,
+      });
+    }, 500);
+  });
   return fetch(API_TASK_RUN_TO_EARN, {
     method: 'POST',
     headers: {
